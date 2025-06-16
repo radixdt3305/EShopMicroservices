@@ -4,7 +4,7 @@
         string Name,
         string Description,
         decimal Price,
-        string ImageFileName,
+        string ImageFile,
         List<string> Category);
 
     public record CreateProductResponse(Guid Id);

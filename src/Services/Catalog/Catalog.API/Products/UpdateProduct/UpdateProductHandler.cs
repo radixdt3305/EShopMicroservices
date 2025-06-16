@@ -20,7 +20,7 @@
         }
     }
 
-    public class UpdateProductHandler(IDocumentSession session, ILogger<UpdateProductHandler> logger)
+    public class UpdateProductHandler(IDocumentSession session)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@
             var product = await session.LoadAsync<Product>(request.Id, cancellationToken);
             if (product == null)
             {
-                logger.LogWarning("Product with ID {Id} not found", request.Id);
+                //logger.LogWarning("Product with ID {Id} not found", request.Id);
                 return new UpdateProductResult(false);
             }
             product.Name = request.Name;
@@ -39,7 +39,7 @@
 
             session.Update(product);
             await session.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Product with ID {Id} updated successfully", request.Id);
+            //logger.LogInformation("Product with ID {Id} updated successfully", request.Id);
             return new UpdateProductResult(true);
         }
     }
